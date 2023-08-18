@@ -1,12 +1,12 @@
-import requests, bs4, re, datetime
+import requests, bs4, re, datetime, os
 from typing import NamedTuple
 
 #month, dayは0埋め
-TARGET_URL = "https://www.data.jma.go.jp/stats/etrn/view/hourly_s1.php?prec_no=62&block_no=47772&year={year}&month={month}&day={day}&view=p1"
+TARGET_URL = "https://www.data.jma.go.jp/stats/etrn/view/hourly_s1.php?prec_no=68&block_no=47740&year={year}&month={month}&day={day}&view=p1"
 
-DATA_DIR = "./data"
+DATA_DIR = r"C:\Users\Administrator\Desktop\kisyoucho-master\data"
 
-START_DATETIME = "2000-01-01"
+START_DATETIME = "2023-01-01"
 
 def get_weather(
         year: int,
@@ -87,9 +87,9 @@ def save_weather_data(
     ext: str = "csv"
     ) -> None:
     file_in_dir = f"{DATA_DIR}/{year}_{month}_{day}.{ext}"
-    with open(file_in_dir, "w") as f:
+    with open(file_in_dir, "w", encoding='shift_jis') as f:
         weather_data_keys = list(weather_data.keys())
-        f.write("時刻,気圧（現地）,気圧（海面）,降水量（mm）,気温（摂氏）,露点温度（摂氏）,蒸気圧（hPa）,湿度（％）,風速（m/s）,風向,日照時間（時間）,日照量（MJ/㎡）,降雪（cm）,積雪（cm）,天気,雲量,視程（km）\n")
+        f.write("時刻,気圧（現地）,気圧（海面）,降水量（mm）,気温（摂氏）,露点温度（摂氏）,蒸気圧（hPa）,湿度（％）,風速（m/s）,風向,日照時間（時間）,日照量（MJ/m2）,降雪（cm）,積雪（cm）,天気,雲量,視程（km）\n")
         for key in weather_data_keys:
             f.write(f"{key},{weather_data[key]['気圧（現地）']},{weather_data[key]['気圧（海面）']},{weather_data[key]['降水量（mm）']},{weather_data[key]['気温（摂氏）']},{weather_data[key]['露点温度（摂氏）']},{weather_data[key]['蒸気圧（hPa）']},{weather_data[key]['湿度（％）']},{weather_data[key]['風速（m/s）']},{weather_data[key]['風向']},{weather_data[key]['日照時間（時間）']},{weather_data[key]['日照量（MJ/㎡）']},{weather_data[key]['降雪（cm）']},{weather_data[key]['積雪（cm）']},{weather_data[key]['天気']},{weather_data[key]['雲量']},{weather_data[key]['視程（km）']}\n")
 
