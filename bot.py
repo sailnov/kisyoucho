@@ -1,10 +1,10 @@
-import requests, bs4, re, datetime, os
+import requests, bs4, re, datetime
 from typing import NamedTuple
 
 #month, dayは0埋め
 TARGET_URL = "https://www.data.jma.go.jp/stats/etrn/view/hourly_s1.php?prec_no=68&block_no=47740&year={year}&month={month}&day={day}&view=p1"
 
-DATA_DIR = r"C:\Users\Administrator\Desktop\kisyoucho-master\data"
+DATA_DIR = r"./data"
 
 START_DATETIME = "2023-01-01"
 
